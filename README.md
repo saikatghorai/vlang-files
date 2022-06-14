@@ -15,6 +15,3 @@
 	Status: 🚧 In Construction
 </h4>
 
-<p align="center">
-	<a href="#tech-stack">Tech Stack</a> 
-</p>
