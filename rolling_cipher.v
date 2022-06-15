@@ -1,14 +1,13 @@
-fn return_cipher_text(mut rune_arr []rune, roll_q int) []rune{
+fn return_cipher_text(text string, roll_q int) string{
+	mut rune_arr := text.runes()
 	a := rune_arr.len
 	for i in 0..a{
 		rune_arr[i] += roll_q
 	}
-	return rune_arr
+	return rune_arr.string()
 }
 
 fn main(){
 	secret := "Don't go there tomorrow!"
-	mut rune_arr := secret.runes()
-	encrypted_text := return_cipher_text(mut rune_arr, 5).string()
-	println(encrypted_text)
+	println(return_cipher_text(secret, 5))
 }
