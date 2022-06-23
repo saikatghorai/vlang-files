@@ -41,7 +41,7 @@ fn decrypt(encrypted_text string, key string) string{
 
 fn main(){
 	secret := "Heatwavesbeenfakinmeout"
-	key := "lol"
+	key := "aaaaaaaaaaaaaaaaaaaaaaa" 
 	println(create_vignere_cipher(secret, key))
 //	println(decrypt(create_vignere_cipher(secret, key), key))
 }

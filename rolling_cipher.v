@@ -17,7 +17,6 @@ fn decrypt(cipher_text string, roll_q int) string{
 }
 
 fn main(){
-	secret := "Don't go there tomorrow!"
-	println(return_cipher_text(secret, 5))
-	println(decrypt(return_cipher_text(secret, 5), 5))
+	secret := "I have gold"
+	println(return_cipher_text(secret, 3))
 }
