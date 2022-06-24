@@ -6,7 +6,7 @@ __global (
 )
 
 fn parse(text string) {
-	mut idx := 0
+	mut idx := -1
 	mut cellrow := []int{len: cell_row_size, init: 0}
 	for i in text {
 		match i.ascii_str() {
@@ -40,7 +40,8 @@ fn parse(text string) {
 				}
 			}
 			'.' {
-				println(rune(cellrow[idx]))
+				if idx != -1 {println(rune(cellrow[idx]))}
+				else{println("")}
 			}
 			',' {
 				cellrow[idx] = os.input('').int()
@@ -48,10 +49,13 @@ fn parse(text string) {
 			else {}
 		}
 	}
+	if text[0].ascii_str() == "d"{
+		println(cellrow)
+	}
 }
 
 fn main() {
-	mut input := ''
+	mut	input := ''
 
 	if os.args.len == 1 {
 		input = os.input('')
