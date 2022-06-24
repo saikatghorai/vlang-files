@@ -40,8 +40,11 @@ fn parse(text string) {
 				}
 			}
 			'.' {
-				if idx != -1 {println(rune(cellrow[idx]))}
-				else{println("")}
+				if idx != -1 {
+					println(rune(cellrow[idx]))
+				} else {
+					println('')
+				}
 			}
 			',' {
 				cellrow[idx] = os.input('').int()
@@ -49,13 +52,13 @@ fn parse(text string) {
 			else {}
 		}
 	}
-	if text[0].ascii_str() == "d"{
+	if text[0].ascii_str() == 'd' {
 		println(cellrow)
 	}
 }
 
 fn main() {
-	mut	input := ''
+	mut input := ''
 
 	if os.args.len == 1 {
 		input = os.input('')
