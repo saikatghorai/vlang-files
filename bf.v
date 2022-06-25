@@ -1,17 +1,34 @@
 import os
 
 __global (
-	cell_row_size = int(1000)
-	data_limit    = int(1000)
+	cell_row_size = int(30_000)
+	data_limit    = int(256)
 )
 
 fn parse(text string) {
-	mut idx := -1
+	mut loop_table := []int{len: 100}
+	mut loop_stack := []int{len: 100}
+	for i in 0 .. text.len {
+		match text[i].ascii_str() {
+			'[' {
+				loop_stack = loop_stack.reverse()
+				loop_stack.prepend(i)
+				loop_stack = loop_stack.reverse()
+			}
+			']' {
+				loop_beginning_index := loop_stack.pop()
+				loop_table[loop_beginning_index] = i
+				loop_table[i] = loop_beginning_index
+			}
+			else {}
+		}
+	}
+	mut idx := 0
 	mut cellrow := []int{len: cell_row_size, init: 0}
-	for i in text {
-		match i.ascii_str() {
+	for i := 0; i < text.len; i++ {
+		match text[i].ascii_str() {
 			'>' {
-				if idx == 1000 {
+				if idx == cell_row_size {
 					idx = 0
 				} else {
 					idx++
@@ -19,22 +36,21 @@ fn parse(text string) {
 			}
 			'<' {
 				if idx == 0 {
-					idx = 1000
+					idx = cell_row_size - 1
 				} else {
-					idx++
+					idx--
 				}
 			}
 			'+' {
-				if cellrow[idx] > data_limit {
-					cellrow[idx] %= data_limit
+				if cellrow[idx] + 1 == 256 {
+					cellrow[idx] = 0
 				} else {
 					cellrow[idx]++
 				}
 			}
 			'-' {
-				if cellrow[idx] < 0 {
-					cellrow[idx] %= data_limit
-					cellrow[idx]++
+				if cellrow[idx] - 1 < 0 {
+					cellrow[idx] = 255
 				} else {
 					cellrow[idx]--
 				}
@@ -47,13 +63,22 @@ fn parse(text string) {
 				}
 			}
 			',' {
-				cellrow[idx] = os.input('').int()
+				cellrow[idx] = os.input('')[0]
+				idx++
+			}
+			'[' {
+				if cellrow[idx] == 0 {
+					i == loop_table[i]
+				} else {
+				}
+			}
+			']' {
+				if cellrow[idx] != 0 {
+					i = loop_table[i]
+				}
 			}
 			else {}
 		}
-	}
-	if text[0].ascii_str() == 'd' {
-		println(cellrow)
 	}
 }
 
