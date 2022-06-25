@@ -6,16 +6,16 @@ __global (
 )
 
 fn parse(text string) {
-	mut loop_table := []int{len: 100}
-	mut loop_stack := []int{len: 100}
+	mut loop_table := []int{len: 30_000}
+	mut loop_stack := []int{len: 30_000}
 	for i in 0 .. text.len {
 		match text[i].ascii_str() {
-			'[' {
+			'o' {
 				loop_stack = loop_stack.reverse()
 				loop_stack.prepend(i)
 				loop_stack = loop_stack.reverse()
 			}
-			']' {
+			'l' {
 				loop_beginning_index := loop_stack.pop()
 				loop_table[loop_beginning_index] = i
 				loop_table[i] = loop_beginning_index
@@ -27,52 +27,52 @@ fn parse(text string) {
 	mut cellrow := []int{len: cell_row_size, init: 0}
 	for i := 0; i < text.len; i++ {
 		match text[i].ascii_str() {
-			'>' {
+			'G' {
 				if idx == cell_row_size {
 					idx = 0
 				} else {
 					idx++
 				}
 			}
-			'<' {
+			'i' {
 				if idx == 0 {
 					idx = cell_row_size - 1
 				} else {
 					idx--
 				}
 			}
-			'+' {
+			'b' {
 				if cellrow[idx] + 1 == 256 {
 					cellrow[idx] = 0
 				} else {
 					cellrow[idx]++
 				}
 			}
-			'-' {
+			'M' {
 				if cellrow[idx] - 1 < 0 {
 					cellrow[idx] = 255
 				} else {
 					cellrow[idx]--
 				}
 			}
-			'.' {
+			'R' {
 				if idx != -1 {
 					println(rune(cellrow[idx]))
 				} else {
 					println('')
 				}
 			}
-			',' {
+			'e' {
 				cellrow[idx] = os.input('')[0]
 				idx++
 			}
-			'[' {
+			'o' {
 				if cellrow[idx] == 0 {
 					i == loop_table[i]
 				} else {
 				}
 			}
-			']' {
+			'l' {
 				if cellrow[idx] != 0 {
 					i = loop_table[i]
 				}
