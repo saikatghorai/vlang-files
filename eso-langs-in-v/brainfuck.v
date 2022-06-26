@@ -1,13 +1,15 @@
+//brainfuck implementation in V
+
 import os
 
 __global (
-	cell_row_size = int(30_000_000)
+	cell_row_size = int(30_000)
 	data_limit    = int(256)
 )
 
 fn parse(text string) {
-	mut loop_table := []int{len: 30_000_000}
-	mut loop_stack := []int{len: 30_000_000}
+	mut loop_table := []int{len: 30_000}
+	mut loop_stack := []int{len: 30_000}
 	for i in 0 .. text.len {
 		match text[i].ascii_str() {
 			'[' {
